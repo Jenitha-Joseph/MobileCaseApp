@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MobileCaseApp.Models.Category>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Available Mobile Brand's</h1>
+<br />
+
+<p>
+    @{ await Html.RenderPartialAsync("~/Views/_CreateButtonPartial.cshtml"); }
+    @* <partial name="_CreateButtonPartial" *@
+</p>
+
+
+@if (Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a class="link-info" asp-action="Details" asp-route-Id="@item.Id">
+                            <i class="fa fa-eye pr-1"></i> @Html.DisplayFor(modelItem => item.Name)
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-warning text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                            <i class="fa fa-pencil pr-1"></i> Edit
+                        </a>
+                        <a class="btn btn-danger text-white ml-3" asp-action="Delete" asp-route-Id="@item.Id">
+                            <i class="fa fa-trash pr-1"></i> Delete
+                        </a>
+                        @*<a class="btn btn-success text-white ml-5" asp-action="Create_SubCategory" asp-route-Id="@item.Id">
+                        Add Sub Category
+                    </a>*@
+
+                    </td>
+                </tr>
+                
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <hr />
+    <h5 class="text-md-center">No mobile brands are available..!!</h5>
+}

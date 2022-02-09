@@ -1,0 +1,61 @@
+﻿@model IEnumerable<MobileCaseApp.Models.SubCategory>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Available Mobile Model</h1>
+<br />
+
+<p>
+    @{ await Html.RenderPartialAsync("~/Views/_CreateButtonPartial.cshtml"); }
+    @* <partial name="_CreateButtonPartial" *@
+</p>
+
+
+@if (Model.Count() > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.category.Name)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.category.Name)
+                    </td>
+                    <td>
+                    <td>
+                        <a class="btn btn-warning text-white" asp-action="Edit" asp-route-Id="@item.Id">
+                            Edit
+                        </a>
+                        <a class="btn btn-danger text-white ml-3" asp-action="Delete" asp-route-Id="@item.Id">
+                            Delete
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <hr />
+    <h5 class="text-md-center">No mobile models are available..!!</h5>
+}
